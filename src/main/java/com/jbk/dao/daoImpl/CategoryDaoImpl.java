@@ -50,7 +50,6 @@ public class CategoryDaoImpl implements CategoryDao {
 		return categoryEntity;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public List<CategoryEntity> getAllCategorys() {
 		List list = null;
