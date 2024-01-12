@@ -3,7 +3,6 @@ package com.jbk.dao;
 import java.util.List;
 
 import com.jbk.entity.CategoryEntity;
-import com.jbk.model.CategoryModel;
 
 public interface CategoryDao {
 

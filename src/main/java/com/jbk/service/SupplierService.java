@@ -2,7 +2,6 @@ package com.jbk.service;
 
 import java.util.List;
 
-import com.jbk.entity.SupplierEntity;
 import com.jbk.model.SupplierModel;
 
 public interface SupplierService {
