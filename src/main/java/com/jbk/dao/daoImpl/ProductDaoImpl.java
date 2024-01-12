@@ -60,7 +60,7 @@ public class ProductDaoImpl implements ProductDao {
 		try {
 			CriteriaBuilder criteriaBuilder = openSession.getCriteriaBuilder();
 		    CriteriaQuery<ProductEntity> criteriaQuery = criteriaBuilder.createQuery(ProductEntity.class);
-		    Root<ProductEntity> root = criteriaQuery.from(ProductEntity.class);
+		    criteriaQuery.from(ProductEntity.class);
 		   // criteriaQuery.orderBy(criteriaBuilder.desc(root.get("productname")));
 
 		    list = openSession.createQuery(criteriaQuery).getResultList();
