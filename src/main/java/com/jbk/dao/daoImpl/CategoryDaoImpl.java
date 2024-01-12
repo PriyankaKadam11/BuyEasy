@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
 import com.jbk.dao.CategoryDao;
 import com.jbk.entity.CategoryEntity;
 import com.jbk.exception.SomethingWentWrongException;
-import com.jbk.model.CategoryModel;
 
 @Repository
 public class CategoryDaoImpl implements CategoryDao {
