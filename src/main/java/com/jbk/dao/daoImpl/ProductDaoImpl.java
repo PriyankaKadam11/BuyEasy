@@ -3,6 +3,9 @@ package com.jbk.dao.daoImpl;
 import java.util.List;
 
 import javax.persistence.PersistenceException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -52,15 +55,20 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<ProductEntity> getAllProducts() {
-		List list = null;
+		List<ProductEntity> list = null;
 		Session openSession = session.openSession();
 		try {
-			Criteria createCriteria = openSession.createCriteria(ProductEntity.class);
-			Criteria addOrder = createCriteria.addOrder(Order.desc("productname"));
-		    list= addOrder.list();
+			CriteriaBuilder criteriaBuilder = openSession.getCriteriaBuilder();
+		    CriteriaQuery<ProductEntity> criteriaQuery = criteriaBuilder.createQuery(ProductEntity.class);
+		    Root<ProductEntity> root = criteriaQuery.from(ProductEntity.class);
+		   // criteriaQuery.orderBy(criteriaBuilder.desc(root.get("productname")));
+
+		    list = openSession.createQuery(criteriaQuery).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new SomethingWentWrongException("Something went wrong");
+		}finally {
+		    openSession.close();
 		}
 		return list;
 	}
