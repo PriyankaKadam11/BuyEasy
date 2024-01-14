@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.jbk.dao.daoImpl.SupplierDaoImpl;
 import com.jbk.entity.SupplierEntity;
-import com.jbk.exception.ResourseNotExist;
+import com.jbk.exception.ResourseNotExistException;
 import com.jbk.model.SupplierModel;
 import com.jbk.service.SupplierService;
 
@@ -55,7 +55,7 @@ public class SupplierServiceImpl implements SupplierService {
 		if (supplierById != null) {
 				supplier.updateSupplier(mapper.map(suppliermodel, SupplierEntity.class));
 		} else {
-			throw new ResourseNotExist("supplier not exist with id " + suppliermodel.getSupplierId());
+			throw new ResourseNotExistException("supplier not exist with id " + suppliermodel.getSupplierId());
 		}
 	}
 

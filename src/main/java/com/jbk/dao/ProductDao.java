@@ -11,4 +11,7 @@ public interface ProductDao {
 	public List<ProductEntity> getAllProducts();
 	public ProductEntity updateProduct(ProductEntity productentity);
 	public int deleteProduct(long productId);
+	public List<ProductEntity> sortProductByName();
+	public double getMaxPrice();
+	public List<ProductEntity> getMaxPriceProduct();
 }

@@ -50,9 +50,9 @@ public class GlobalExceptionHandler {
 		return cc;
 	}
 	
-	@ExceptionHandler(ResourseNotExist.class)
+	@ExceptionHandler(ResourseNotExistException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
-	public CustomExceptionResopnce resourseNotExist(ResourseNotExist ex) {
+	public CustomExceptionResopnce resourseNotExist(ResourseNotExistException ex) {
 
 		CustomExceptionResopnce er = new CustomExceptionResopnce();
 		er.setDefaultMessage(ex.getMessage());

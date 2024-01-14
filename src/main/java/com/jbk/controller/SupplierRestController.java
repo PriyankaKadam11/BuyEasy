@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jbk.exception.ResourceAlreadyExistException;
-import com.jbk.exception.ResourseNotExist;
+import com.jbk.exception.ResourseNotExistException;
 import com.jbk.exception.SomethingWentWrongException;
 import com.jbk.model.SupplierModel;
 import com.jbk.service.SupplierService;
@@ -49,7 +49,7 @@ public class SupplierRestController {
 		if (supplierById != null) {
 			return new ResponseEntity<SupplierModel>(supplierById, HttpStatus.FOUND);
 		} else {
-			throw new ResourseNotExist("supplier not found with id " + supplierId);
+			throw new ResourseNotExistException("supplier not found with id " + supplierId);
 		}
 
 	}
@@ -60,7 +60,7 @@ public class SupplierRestController {
 		if (allSuppliers != null && !allSuppliers.isEmpty()) {
 			return new ResponseEntity<List<SupplierModel>>(allSuppliers, HttpStatus.FOUND);
 		} else {
-			throw new ResourseNotExist("supplier not found with id ");
+			throw new ResourseNotExistException("supplier not found with id ");
 		}
 	}
 
@@ -88,7 +88,7 @@ public class SupplierRestController {
 		if (allSuppliers != null && !allSuppliers.isEmpty()) {
 			return new ResponseEntity<List<SupplierModel>>(allSuppliers, HttpStatus.FOUND);
 		} else {
-			throw new ResourseNotExist("supplier not found");
+			throw new ResourseNotExistException("supplier not found");
 		}
 	}
 	
@@ -98,7 +98,7 @@ public class SupplierRestController {
 		if (allSuppliers != null && !allSuppliers.isEmpty()) {
 			return new ResponseEntity<List<SupplierModel>>(allSuppliers, HttpStatus.FOUND);
 		} else {
-			throw new ResourseNotExist("supplier not found");
+			throw new ResourseNotExistException("supplier not found");
 		}
 	}
 }

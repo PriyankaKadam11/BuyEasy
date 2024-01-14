@@ -122,7 +122,7 @@ public class SupplierDaoImpl implements SupplierDao {
 	@SuppressWarnings("deprecation")
 	@Override
 	public List<SupplierModel> getAllSuppliersRistriction() {
-		List list = null;
+		List<SupplierModel> list = null;
 		Session openSession = session.openSession();
 		try {
 		Criteria createCriteria = openSession.createCriteria(SupplierEntity.class);

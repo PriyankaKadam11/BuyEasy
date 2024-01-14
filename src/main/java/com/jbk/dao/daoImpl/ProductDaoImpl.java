@@ -12,6 +12,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -106,6 +108,59 @@ public class ProductDaoImpl implements ProductDao {
 		}
 
 		return status;
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public List<ProductEntity> sortProductByName() {
+		List<ProductEntity> list=null;
+		try {
+			Session openSession = session.openSession();
+			Criteria criteria = openSession.createCriteria(ProductEntity.class);
+			criteria.addOrder(Order.desc("productname"));
+			list = criteria.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SomethingWentWrongException("Something went wrong");
+		}
+		return list;
+	}
+
+	@Override
+	public double getMaxPrice() {
+		double maxPrice=0.0;
+		try {
+			Session openSession = session.openSession();
+			Criteria criteria = openSession.createCriteria(ProductEntity.class);
+			criteria.setProjection(Projections.max("productprice"));
+			List<Double> list = criteria.list();
+			
+			if(!list.isEmpty()) {
+				
+			maxPrice = list.get(0);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SomethingWentWrongException("Something went wrong");
+		}
+		return maxPrice;
+	}
+
+	@Override
+	public List<ProductEntity> getMaxPriceProduct() {
+		List<ProductEntity> list=null;
+		try {
+			Session openSession = session.openSession();
+			Criteria criteria = openSession.createCriteria(ProductEntity.class);
+			double maxPrice = getMaxPrice();
+			criteria.add(Restrictions.eq("productprice", maxPrice));
+			list = criteria.list();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SomethingWentWrongException("Something went wrong");
+		}
+		return list;	
 	}
 	}
 

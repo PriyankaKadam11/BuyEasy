@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jbk.exception.ResourceAlreadyExistException;
-import com.jbk.exception.ResourseNotExist;
+import com.jbk.exception.ResourseNotExistException;
 import com.jbk.exception.SomethingWentWrongException;
 import com.jbk.model.CategoryModel;
 import com.jbk.service.CategoryService;
@@ -49,7 +49,7 @@ public class CategoryRestContoller {
 		if (categoryById != null) {
 			return new ResponseEntity<CategoryModel>(categoryById, HttpStatus.FOUND);
 		} else {
-			throw new ResourseNotExist("category not found with id " + categoryId);
+			throw new ResourseNotExistException("category not found with id " + categoryId);
 		}
 
 	}
@@ -60,7 +60,7 @@ public class CategoryRestContoller {
 		if (allCategorys != null && !allCategorys.isEmpty()) {
 			return new ResponseEntity<List<CategoryModel>>(allCategorys, HttpStatus.FOUND);
 		} else {
-			throw new ResourseNotExist("category not found with id ");
+			throw new ResourseNotExistException("category not found with id ");
 		}
 	}
 
@@ -71,7 +71,7 @@ public class CategoryRestContoller {
 		if (delete == 1) {
 			return new ResponseEntity<String>("Category deleted successfully||", HttpStatus.OK);
 		} else {
-			throw new ResourseNotExist("no category available with id :" + CategoryId);
+			throw new ResourseNotExistException("no category available with id :" + CategoryId);
 		}
 	}
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.jbk.dao.daoImpl.CategoryDaoImpl;
 import com.jbk.entity.CategoryEntity;
-import com.jbk.exception.ResourseNotExist;
+import com.jbk.exception.ResourseNotExistException;
 import com.jbk.model.CategoryModel;
 import com.jbk.service.CategoryService;
 
@@ -56,7 +56,7 @@ public class CategoryServiceImpl implements CategoryService {
 		if (categoryById != null) {
 				category.updateCategory(mapper.map(categorymodel, CategoryEntity.class));
 		} else {
-			throw new ResourseNotExist("category not exist with id " + categorymodel.getCategoryId());
+			throw new ResourseNotExistException("category not exist with id " + categorymodel.getCategoryId());
 		}
 	}
 

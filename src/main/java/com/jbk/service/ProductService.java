@@ -11,4 +11,8 @@ public interface ProductService {
 	public List<ProductModel> getAllProducts();
 	public void updateProduct(ProductModel productmodel);
 	public int deleteProduct(long productId);
+	public List<ProductModel> sortProductByName();
+	public double getMaxPrice();
+	public List<ProductModel> getMaxPriceProduct();
+	
 }

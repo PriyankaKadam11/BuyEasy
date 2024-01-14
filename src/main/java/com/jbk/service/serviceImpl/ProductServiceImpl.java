@@ -2,6 +2,7 @@ package com.jbk.service.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.jbk.dao.daoImpl.ProductDaoImpl;
 import com.jbk.entity.ProductEntity;
-import com.jbk.exception.ResourseNotExist;
+import com.jbk.exception.ResourseNotExistException;
 import com.jbk.model.ProductModel;
 import com.jbk.service.ProductService;
 
@@ -55,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
 		if (productById != null) {
 				product.updateProduct(mapper.map(productmodel, ProductEntity.class));
 		} else {
-			throw new ResourseNotExist("product not exist with id " + productmodel.getProductId());
+			throw new ResourseNotExistException("product not exist with id " + productmodel.getProductId());
 		}
 		
 	}
@@ -63,6 +64,37 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int deleteProduct(long productId) {
 		return product.deleteProduct(productId);
+	}
+
+	@Override
+	public List<ProductModel> sortProductByName() {
+		List<ProductEntity> sortProductByName = product.sortProductByName();
+		List<ProductModel> list =null;
+		if(sortProductByName!=null && !sortProductByName.isEmpty()) {
+			//for (ProductEntity entity : sortProductByName) {
+			list = sortProductByName.stream().map(entity ->mapper.map(entity, ProductModel.class)).collect(Collectors.toList());
+		//}
+		}
+		return list;
+	}
+
+	@Override
+	public double getMaxPrice() {
+		return product.getMaxPrice();
+	}
+
+	@Override
+	public List<ProductModel> getMaxPriceProduct() {
+		List<ProductEntity> maxPriceProduct = product.getMaxPriceProduct();
+		List<ProductModel> productModel=null;
+		if(maxPriceProduct!=null && !maxPriceProduct.isEmpty()) {
+			
+				productModel= maxPriceProduct.stream().map(entity1 ->mapper.map(entity1, ProductModel.class)).collect(Collectors.toList());
+		  
+		}else {
+			throw new ResourseNotExistException("product not exist");
+		}
+		return productModel 	;
 	}
 
 }

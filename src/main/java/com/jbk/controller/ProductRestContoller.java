@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jbk.exception.ResourceAlreadyExistException;
-import com.jbk.exception.ResourseNotExist;
+import com.jbk.exception.ResourseNotExistException;
 import com.jbk.exception.SomethingWentWrongException;
 import com.jbk.model.ProductModel;
 import com.jbk.service.ProductService;
@@ -49,7 +49,7 @@ public class ProductRestContoller {
 		if (productById != null) {
 			return new ResponseEntity<ProductModel>(productById, HttpStatus.FOUND);
 		} else {
-			throw new ResourseNotExist("product not found with id " + productId);
+			throw new ResourseNotExistException("product not found with id " + productId);
 		}
 
 	}
@@ -60,7 +60,7 @@ public class ProductRestContoller {
 		if (allProducts != null && !allProducts.isEmpty()) {
 			return new ResponseEntity<List<ProductModel>>(allProducts, HttpStatus.FOUND);
 		} else {
-			throw new ResourseNotExist("product not found with id ");
+			throw new ResourseNotExistException("product not found with id ");
 		}
 	}
 
@@ -70,7 +70,7 @@ public class ProductRestContoller {
 		if (delete == 1) {
 			return new ResponseEntity<String>("Product deleted successfully||", HttpStatus.OK);
 		} else {
-			throw new ResourseNotExist("no product available with id :" + ProductId);
+			throw new ResourseNotExistException("no product available with id :" + ProductId);
 		}
 	}
 
@@ -79,4 +79,40 @@ public class ProductRestContoller {
 		service.updateProduct(productmodel);
 		return new ResponseEntity<String>("Product update successfully||", HttpStatus.OK);
 	}
+
+	@GetMapping("/sort-product-by-Name")
+	public ResponseEntity<List<ProductModel>> sortProductByNm() {
+		List<ProductModel> sortProductByName = service.sortProductByName();
+
+		if (sortProductByName != null && !sortProductByName.isEmpty()) {
+			return new ResponseEntity<List<ProductModel>>(sortProductByName, HttpStatus.FOUND);
+		} else {
+			throw new ResourseNotExistException("product not found with id ");
+
+		}
+	}
+	
+	@GetMapping("/get-maxprice-product")
+	public ResponseEntity<List<ProductModel>> getMaxPriceProduct() {
+		 List<ProductModel> maxPriceProduct = service.getMaxPriceProduct();
+		if (maxPriceProduct != null && !maxPriceProduct.isEmpty()) {
+			return new ResponseEntity<List<ProductModel>>(maxPriceProduct, HttpStatus.FOUND);
+		} else {
+			throw new ResourseNotExistException("product not found with id ");
+
+		}
+	}
+
+	
+	@GetMapping("/get-maxprice")
+	public ResponseEntity<Double> getMaxPrice() {
+		 double maxPrice = service.getMaxPrice();
+		if (maxPrice!=0) {
+			return new ResponseEntity<Double>(maxPrice, HttpStatus.FOUND);
+		} else {
+			throw new ResourseNotExistException("product not found with id ");
+
+		}
+	}
+
 }
