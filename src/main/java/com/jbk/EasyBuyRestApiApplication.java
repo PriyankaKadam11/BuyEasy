@@ -8,7 +8,7 @@ public class EasyBuyRestApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EasyBuyRestApiApplication.class, args);
-		System.out.println("Product Module");
+		System.out.println("Product module");
 	}
 
 }
