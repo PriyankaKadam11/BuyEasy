@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jbk.exception.ResourceAlreadyExistException;
 import com.jbk.exception.ResourseNotExistException;
@@ -91,10 +93,10 @@ public class ProductRestContoller {
 
 		}
 	}
-	
+
 	@GetMapping("/get-maxprice-product")
 	public ResponseEntity<List<ProductModel>> getMaxPriceProduct() {
-		 List<ProductModel> maxPriceProduct = service.getMaxPriceProduct();
+		List<ProductModel> maxPriceProduct = service.getMaxPriceProduct();
 		if (maxPriceProduct != null && !maxPriceProduct.isEmpty()) {
 			return new ResponseEntity<List<ProductModel>>(maxPriceProduct, HttpStatus.FOUND);
 		} else {
@@ -103,16 +105,28 @@ public class ProductRestContoller {
 		}
 	}
 
-	
 	@GetMapping("/get-maxprice")
 	public ResponseEntity<Double> getMaxPrice() {
-		 double maxPrice = service.getMaxPrice();
-		if (maxPrice!=0) {
+		double maxPrice = service.getMaxPrice();
+		if (maxPrice != 0) {
 			return new ResponseEntity<Double>(maxPrice, HttpStatus.FOUND);
 		} else {
 			throw new ResourseNotExistException("product not found with id ");
 
 		}
+	}
+
+	@PostMapping("/upload-file")
+	public ResponseEntity<String> uploadFile(@RequestParam MultipartFile file) {
+		System.out.println(file.getOriginalFilename());
+		String uploadFile = service.uploadFile(file);
+		return new ResponseEntity<String>(uploadFile, HttpStatus.OK);
+	}
+
+	@GetMapping(value="/Product-Report", produces="application/json")
+	public String productReport() {
+		return service.generateReport();
+
 	}
 
 }
