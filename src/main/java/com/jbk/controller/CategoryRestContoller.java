@@ -36,7 +36,7 @@ public class CategoryRestContoller {
 		if (status == 1) {
 			return new ResponseEntity<String>("Category added successfully", HttpStatus.CREATED);
 		} else if (status == 2) {
-			throw new ResourceAlreadyExistException("Category alread exist please check unique fields");
+			throw new ResourceAlreadyExistException("alread exist please check unique fields");
 		} else {
 			throw new SomethingWentWrongException("Something went wrong");
 		}
